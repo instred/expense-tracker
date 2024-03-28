@@ -2,6 +2,13 @@
 import flask
 import mariadb
 import sys
+import dotenv
+import os
+
+path = '../.env'
+
+dotenv.load_dotenv(dotenv_path=path)
+
 
 # create the flask app
 app = flask.Flask(__name__)
@@ -12,11 +19,11 @@ def index():
    return 'Success!'
 
 config = {
-    'host': '213.227.68.191',
-    'port': 42069,
-    'user': 'root',
-    'password': 'NieWiem124',
-    'database': 'expense-tracker'
+    'host': os.getenv('host'),
+    'port': os.getenv('port'),
+    'user': os.getenv('user'),
+    'password': os.getenv('password'),
+    'database': os.getenv('database')
 }
 
 
