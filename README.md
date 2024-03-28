@@ -22,7 +22,7 @@ cd your-repo
 python3 -m venv venv
 ```
 
-### Activating the Virtual Environment (Using Script)
+### Activating the Virtual Environment
 In the project directory, you can activate the virtual environment using the provided script:
 
 On Windows:
@@ -42,4 +42,10 @@ Once you have activated the virtual environment, you can install the required pa
 
 ```bash
 pip install -r requirements.txt
+```
+
+### Exiting Virtual Environment
+
+```bash
+deactivate
 ```
