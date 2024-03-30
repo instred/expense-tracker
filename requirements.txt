@@ -3,3 +3,5 @@ SQLAlchemy
 python-dotenv
 flask-SQLAlchemy
 flask-bcrypt
+flask-session
+redis
