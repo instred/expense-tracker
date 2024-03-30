@@ -1,7 +1,5 @@
 # import necessary packages
 import flask
-import mariadb
-import sys
 import dotenv
 import os
 
@@ -18,26 +16,9 @@ app.config["DEBUG"] = True
 def index():
    return 'Success!'
 
-config = {
-    'host': os.getenv('host'),
-    'port': os.getenv('port'),
-    'user': os.getenv('user'),
-    'password': os.getenv('password'),
-    'database': os.getenv('database')
-}
 
 
-@app.route('/api', methods=['GET'])
-def index2():
-   try:
-      conn = mariadb.connect(
-         **config
-      )
-   except mariadb.Error as e:
-      print(f"Error connecting to MariaDB Platform: {e}")
-      sys.exit(1)
-   print(conn.response)
+if __name__ == '__main__':
 
-
-# run the app
-app.run()
+   # run the app
+   app.run()
