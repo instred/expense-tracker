@@ -5,3 +5,4 @@ flask-SQLAlchemy
 flask-bcrypt
 flask-session
 redis
+flask-cors

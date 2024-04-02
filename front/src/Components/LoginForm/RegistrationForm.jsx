@@ -4,8 +4,7 @@ import { FaRegUser  } from "react-icons/fa"
 import { RiLockPasswordLine } from "react-icons/ri"
 import httpClient from '../../httpClient'
 
-
-const LoginForm = () => {
+const RegistrationForm = () => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -14,7 +13,7 @@ const LoginForm = () => {
         console.log(email, password)
 
         try{
-            const resp = await httpClient.post("//localhost:5000/login", {
+            const resp = await httpClient.post("//localhost:5000/register", {
                 email,
                 password,
             });
@@ -41,17 +40,9 @@ const LoginForm = () => {
                     <input type='password' value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Password' required/>
                     <RiLockPasswordLine className='icon'/>
                 </div>
-                <div className='remember-forgot'>
-                    <label><input type="checkbox" />Remember me</label>
-                    <a href="#">Forgot Passwort?</a>
-                </div>
                 <button onClick={() => logInUser()} type='button'>
-                    Login 
+                    Register 
                 </button>
-                <div className='register-link'>
-                    <p>Don't have an account? <a href="/register">Register Now</a></p>
-
-                </div>
 
 
             </form>
@@ -59,5 +50,4 @@ const LoginForm = () => {
         </div>
     )
 }
-
-export default LoginForm
+export default RegistrationForm

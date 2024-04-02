@@ -1,30 +1,74 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import './Home.css'
+import React, {useState, useEffect} from 'react'
+import { useNavigate } from 'react-router-dom';
 
-const Home = (props) => {
-    const { loggedIn, email } = props
+import './Home.css'
+import httpClient from '../../httpClient';
+
+const Home = () => {
+    const [user, setUser] = useState(null);
     const navigate = useNavigate()
 
-    const onButtonClick = () => {
-        let path = '/login'; 
+    useEffect(() => {
+        (async () => {
+            try {
+                const resp = await httpClient.get("//localhost:5000/@me ")
+
+                setUser(resp.data)
+            } catch (error) {
+                console.log("Not authenticated")
+            }
+            
+        })();
+    }, []);
+
+    
+    const redirect = async () => {
+        let path = user != null ? '/dashboard' : '/login'; 
         navigate(path);
+    }
+
+    const logOut = async () => {
+        await httpClient.post("//localhost:5000/logout")
+        window.location.href = '/'
     }
 
     return (
     <div className="mainContainer">
         <div className={'titleContainer'}>
-        <div>Welcome!</div>
+            <div>Welcome!</div>
         </div>
         <div>This is the home page.</div>
         <div className={'buttonContainer'}>
-        <input
-            className={'inputButton'}
-            type="button"
-            onClick={onButtonClick}
-            value={loggedIn ? 'Go to your dashboard' : 'Go to log in page'}
-        />
-        {loggedIn ? <div>Your email address is {email}</div> : <div />}
+            {user != null ? 
+            <div>
+                <input
+                className={'inputButton'}
+                type="button"
+                onClick={redirect}
+                value='Go to your dashboard'
+                />
+                <input
+                className={'inputButton'}
+                type="button"
+                onClick={logOut}
+                value='Log out'
+                />
+                <div>
+                {user != null ? <div>Your email address is {user.email}</div> : <div />}
+                </div>
+            </div> : 
+            <div>
+                <input
+                className={'inputButton'}
+                type="button"
+                onClick={redirect}
+                value='Log in'
+                />
+                
+                
+            </div>}
+            
+        
         </div>
     </div>
     )
